@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		.prop {
+			position: absolute;
+			height: 120px;
+			width: 150px;
+
+		}
+
+		.mole{
+			height: 150px;
+			width: 120px;
+			position: absolute;
+		}
+		.hole {
+			background-image: url(hole.jpg);
+			background-size: 100%; 
+			background-position: cover ;
+			background-repeat: no-repeat;
+		}
+		.hole2{
+			background-image: url(hole2.jpg);
+			background-size: 100%; 
+			background-position: cover ;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body style="background-image: url(bg2.jpg);background-size: 100%; background-position: cover ;background-repeat: no-repeat;">
+<h1 class="text-center ms-4 mt-5"> Whack-a-mole!</h1>
+<h2 class="text-center ms-4 mt-5">Score: <span class="point">0</span></h2>
+<!-- дивы норы чтобы появится -->
+<div class="hole2 prop first" style="top: 300px; left: 600px"></div>
+<div class="hole2 prop second" style="top: 300px; left: 900px"></div>
+<div class="hole2 prop third" style="top: 300px; left: 1200px"></div>
+
+<div class="hole prop first" style="top: 550px; left: 600px"></div>
+<div class="hole prop second" style="top: 550px; left: 900px"></div>
+<div class="hole prop third" style="top: 550px; left: 1200px"></div>
+
+<div class="hole prop first" style="top: 800px; left: 600px"></div>
+<div class="hole prop second" style="top: 800px; left: 900px"></div>
+<div class="hole prop third" style="top: 800px; left: 1200px"></div>
+
+
+
+<script type="text/javascript">
+	let randomizer = function(arg){
+        let random = Math.random()*arg;
+        let round = Math.round(random);
+        return round;
+    }
+    let score = 0;
+	let point = document.querySelector('.point')
+    let left = ['610px','910px','1210px']
+    let up = ['300px','550px','800px']
+    let names = ['mole','bomb']
+	let firstNora = document.querySelector('.first')
+	let secondNora = document.querySelector('.second')
+	let thirdNora = document.querySelector('.third')
+
+	let createMoles = function() {
+		let mole = document.createElement("div");
+		document.body.appendChild(mole);
+		firstNora.before(mole);
+		mole.classList.add("mole")
+		mole.style.transition = '1s'	
+		mole.style.left = left[randomizer(2)];	
+		mole.style.top = up[randomizer(2)];	 
+		mole.name = names[randomizer(1)]
+		if(mole.name=="bomb"){
+			mole.style.backgroundImage = 'url(h.png)'
+            mole.style.backgroundSize = '70%';
+            mole.style.backgroundRepeat= 'no-repeat';
+            mole.style.backgroundPosition= 'center';
+		}
+		else{
+			mole.style.backgroundImage = 'url(m.png)'
+            mole.style.backgroundSize = '100%';
+            mole.style.backgroundRepeat= 'no-repeat';
+		}
+		let show = function(){
+			if(mole.style.top == '300px'){
+				mole.style.top = "200px";			
+			}
+			else if(mole.style.top == '550px'){
+				mole.style.top = "450px";
+			}
+			else{
+				mole.style.top = "700px";
+			}
+		}
+		setTimeout(show, 1000);
+		let hide = function(){
+			if(mole.style.top == '200px'){
+				mole.style.top = "300px";			
+			}
+			else if(mole.style.top == '450px'){
+				mole.style.top = "550px";
+			}
+			else{
+				mole.style.top = "800px";
+			}
+		}
+		setTimeout(hide, 2000);
+		mole.onclick =function(){
+			if(mole.name == 'bomb'){
+				mole.style.display = 'none'
+				score = score - 1
+				point.innerHTML = score
+			}
+			else{
+				mole.style.display = 'none'
+				score = score + 1
+				point.innerHTML = score
+			}
+		}
+	}
+	setInterval(createMoles, 300);
+
+
+	/*
+		функц рандом() = {}о
+		массив лефт = []о
+		массив имя = [гуд, бад]о
+		функция созд кротов = {
+			созд див
+			зад параметры
+			див топ = 100
+			див транзишн
+			див лефт = лефт[рандом(2)]
+			див имя = имя[рандом(1)]
+
+			if(див имя = гуд){
+				бэкграунд зеленый
+			}
+			else{
+				бэкграунд красный
+			}
+
+			функц показать = {
+				див меняет топ на 50
+			}
+
+			тайаут(показать,1000)
+
+			функция скрыть = {
+				див меняет топ на 100
+			}
+
+			тайаут(скрыть,2000)
+			
+			нажатие = {
+				проверка если плохой {
+					скрыть 
+					минус очки
+				}
+				else{
+					скрыть
+					плюс очки
+				}
+			}
+		}
+		интервал(созд кротов, 1000)
+	*/
+</script>
+</body>
+</html>
